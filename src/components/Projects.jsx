@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import CategoryCard from './CategoryCard'
-import ProjectCard from './ProjectCard'
+import CategoryCard from './CategoryCard.jsx'
+import ProjectCard from './ProjectCard.jsx'
 import { getCategories, getProjectsByCategory, getBackButtonText } from '../data/projectsData'
 
 export default function Projects({ isDark, t, isTurkish }) {

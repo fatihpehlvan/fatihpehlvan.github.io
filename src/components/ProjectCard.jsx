@@ -1,4 +1,4 @@
-import ProjectButton from './ProjectButton'
+import ProjectButton from './ProjectButton.jsx';
 
 export default function ProjectCard({ project, isDark }) {
   return (
