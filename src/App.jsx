@@ -98,7 +98,7 @@ function App() {
 
         <About isDark={isDark} t={t} />
 
-        <Projects isDark={isDark} t={t} />
+        <Projects isDark={isDark} t={t} isTurkish={isTurkish} />
 
         <Contact isDark={isDark} t={t} />
 
