@@ -15,11 +15,6 @@ function About({ isDark, t }) {
           }`}>
             {t.about.title}
           </h2>
-          <p className={`text-lg ${
-            isDark ? 'text-gray-400' : 'text-gray-600'
-          }`}>
-            {t.about.subtitle}
-          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">

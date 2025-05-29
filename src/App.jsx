@@ -32,7 +32,6 @@ function App() {
     },
     about: {
       title: "Hakkımda",
-      subtitle: "Kim olduğumu ve ne yaptığımı öğrenin",
       text: "Hacettepe Üniversitesi Bilgisayar Mühendisliği bölümünden 2024 yılında bölüm 3.sü olarak mezun oldum. Şu anda Bilkent Üniversitesi'nde yüksek lisans yapıyorum. Bilgisayar grafikleri ve algoritmaların birleştiği sistemleri kurmaktan keyif alıyorum. Görsellikten çok, sezgisel ve anlamlı yapılar kurmaya odaklanıyorum. Öğrendiklerimi paylaşmayı, kavramları sadeleştirerek anlatmayı ve teknik detayların içindeki sadeliği bulmayı seviyorum.",
       experience: {
         title: "Deneyim",
@@ -77,7 +76,6 @@ function App() {
     },
     about: {
       title: "About Me",
-      subtitle: "Get to know who I am and what I do",
       text: "I graduated from Hacettepe University as the 3rd in my department in 2024, and I'm currently a master's student at Bilkent University. I'm passionate about building systems at the intersection of computer graphics and algorithms. Rather than visual design or modeling, I focus on structure, intuition, and problem-solving. I enjoy teaching what I learn and designing solutions that feel logical and purposeful.",
       experience: {
         title: "Experience",
