@@ -1,67 +1,108 @@
-export default function About({ isDark, t }) {
+// About.jsx - Detaylı ve farklı tasarım
+function About({ isDark, t }) {
   return (
-    <section id="about" className={`px-6 py-16 ${isDark ? 'bg-gradient-to-br from-gray-800 to-gray-900' : 'bg-gradient-to-br from-pink-100 to-pink-50'} transition-all duration-500`}>
-      <div className="max-w-4xl mx-auto text-center">
-        <h3 className={`text-3xl font-bold mb-8 bg-gradient-to-r ${isDark ? 'from-purple-400 to-pink-400' : 'from-pink-500 to-pink-600'} bg-clip-text text-transparent`}>
-          {t.about.title}
-        </h3>
-        
-        <div className={`${isDark ? 'bg-gray-800/60 border-gray-700' : 'bg-white/90 border-pink-200'} backdrop-blur-sm rounded-3xl p-8 shadow-lg border hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
-          <p className={`text-lg leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'} transition-colors duration-500`}>
-            {t.about.text}
+    <section 
+      id="about" 
+      className={`py-20 px-6 ${
+        isDark ? 'bg-gray-800' : 'bg-white'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${
+            isDark ? 'text-white' : 'text-gray-800'
+          }`}>
+            {t.about.title}
+          </h2>
+          <p className={`text-lg ${
+            isDark ? 'text-gray-400' : 'text-gray-600'
+          }`}>
+            {t.about.subtitle}
           </p>
         </div>
-    
-      </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Sol taraf - Ana açıklama */}
+          <div>
+            <p className={`text-lg leading-relaxed mb-8 ${
+              isDark ? 'text-gray-300' : 'text-gray-700'
+            }`}>
+              {t.about.text}
+            </p>
+            
+            {/* İlgi alanları */}
+            <div className="mb-8">
+              <h3 className={`text-xl font-semibold mb-4 ${
+                isDark ? 'text-white' : 'text-gray-800'
+              }`}>
+                {t.about.interests.title}
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {t.about.interests.items.map((interest, index) => (
+                  <span 
+                    key={index}
+                    className={`px-4 py-2 rounded-full text-sm ${
+                      isDark 
+                        ? 'bg-gray-700 text-gray-300' 
+                        : 'bg-pink-100 text-pink-800'
+                    }`}
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Sağ taraf - Yetenekler ve deneyim */}
+          
+
+            {/* Deneyim */}
+            <div>
+              <h3 className={`text-xl font-semibold mb-6 ${
+                isDark ? 'text-white' : 'text-gray-800'
+              }`}>
+                {t.about.experience.title}
+              </h3>
+              <div className="space-y-6">
+                {t.about.experience.items.map((item, index) => (
+                  <div 
+                    key={index}
+                    className={`p-4 rounded-lg border-l-4 ${
+                      isDark 
+                        ? 'bg-gray-700 border-blue-500' 
+                        : 'bg-gray-50 border-pink-500'
+                    }`}
+                  >
+                    <div className={`text-sm font-medium ${
+                      isDark ? 'text-blue-400' : 'text-pink-600'
+                    }`}>
+                      {item.period}
+                    </div>
+                    <h4 className={`font-semibold ${
+                      isDark ? 'text-white' : 'text-gray-800'
+                    }`}>
+                      {item.title}
+                    </h4>
+                    <div className={`text-sm ${
+                      isDark ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
+                      {item.company}
+                    </div>
+                    <p className={`text-sm mt-2 ${
+                      isDark ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
     </section>
   )
 }
 
-// Skills Component
-function Skills({ isDark }) {
-  const skills = [
-    { name: "React", level: 90, icon: "⚛️" },
-    { name: "WebGL", level: 85, icon: "🎮" },
-    { name: "Three.js", level: 80, icon: "🎨" },
-    { name: "AI/ML", level: 75, icon: "🤖" },
-    { name: "Node.js", level: 85, icon: "🟢" },
-    { name: "Python", level: 88, icon: "🐍" }
-  ]
-
-  return (
-    <div className="mt-12">
-      <h4 className={`text-2xl font-semibold mb-8 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
-        Skills & Technologies
-      </h4>
-      
-      <div className="grid md:grid-cols-2 gap-6">
-        {skills.map((skill, i) => (
-          <div 
-            key={i}
-            className={`p-4 ${isDark ? 'bg-gray-800/40 border-gray-700' : 'bg-white/60 border-pink-200'} rounded-2xl border backdrop-blur-sm hover:shadow-lg transition-all duration-300`}
-          >
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{skill.icon}</span>
-                <h5 className={`font-semibold ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
-                  {skill.name}
-                </h5>
-              </div>
-              <span className={`text-sm font-medium ${isDark ? 'text-purple-400' : 'text-pink-600'}`}>
-                {skill.level}%
-              </span>
-            </div>
-            
-            {/* Progress Bar */}
-            <div className={`w-full h-2 ${isDark ? 'bg-gray-700' : 'bg-pink-100'} rounded-full overflow-hidden`}>
-              <div 
-                className={`h-full bg-gradient-to-r ${isDark ? 'from-purple-500 to-pink-500' : 'from-pink-500 to-pink-600'} rounded-full transition-all duration-1000 ease-out`}
-                style={{ width: `${skill.level}%` }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
+export default About
