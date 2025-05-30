@@ -4,7 +4,11 @@ export default function SettingsPanel({ isDark, setIsDark, isTurkish, setIsTurki
       {/* Dark Mode Toggle */}
       <button
         onClick={() => setIsDark(!isDark)}
-        className={`p-3 rounded-full ${isDark ? 'bg-gray-800 text-yellow-400' : 'bg-white/90 text-gray-700'} backdrop-blur-md border ${isDark ? 'border-gray-700' : 'border-pink-200'} hover:scale-110 transition-all duration-300 shadow-lg`}
+        className={`p-3 rounded-full backdrop-blur-md hover:scale-110 transition-all duration-300 shadow-lg ${
+          isDark
+            ? 'bg-gray-800 text-yellow-400 border border-gray-700'
+            : 'bg-white/90 text-gray-700 border border-blue-200'
+        }`}
         title={isDark ? "Light Mode" : "Dark Mode"}
       >
         {isDark ? (
@@ -21,7 +25,11 @@ export default function SettingsPanel({ isDark, setIsDark, isTurkish, setIsTurki
       {/* Language Toggle */}
       <button
         onClick={() => setIsTurkish(!isTurkish)}
-        className={`px-4 py-3 rounded-full ${isDark ? 'bg-gray-800 text-blue-400' : 'bg-white/90 text-gray-700'} backdrop-blur-md border ${isDark ? 'border-gray-700' : 'border-pink-200'} hover:scale-110 transition-all duration-300 shadow-lg font-semibold text-sm`}
+        className={`px-4 py-3 rounded-full font-semibold text-sm backdrop-blur-md hover:scale-110 transition-all duration-300 shadow-lg ${
+          isDark
+            ? 'bg-gray-800 text-blue-400 border border-gray-700'
+            : 'bg-white/90 text-blue-700 border border-blue-200'
+        }`}
         title={isTurkish ? "Switch to English" : "Türkçe'ye Geç"}
       >
         {isTurkish ? "EN" : "TR"}

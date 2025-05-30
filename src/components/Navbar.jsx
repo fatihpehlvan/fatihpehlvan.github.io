@@ -4,18 +4,25 @@ export default function Navbar({ isDark, t, scrollToSection }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <nav className={`flex justify-between items-center px-6 py-4 ${isDark ? 'bg-gray-800/80' : 'bg-white/80'} backdrop-blur-md sticky top-0 z-40 ${isDark ? 'border-gray-700' : 'border-pink-100'} border-b transition-all duration-500`}>
-      <h1 className={`text-xl font-bold bg-gradient-to-r ${isDark ? 'from-purple-400 to-pink-400' : 'from-pink-500 to-pink-600'} bg-clip-text text-transparent`}>
+    <nav className={`flex justify-between items-center px-6 py-4 sticky top-0 z-40 border-b backdrop-blur-md transition-all duration-500 ${
+      isDark ? 'bg-gray-900/80 border-gray-700' : 'bg-white/80 border-blue-100'
+    }`}>
+      {/* Başlık */}
+      <h1 className={`text-xl font-bold bg-gradient-to-r bg-clip-text text-transparent ${
+        isDark ? 'from-green-400 to-blue-400' : 'from-blue-600 to-blue-400'
+      }`}>
         {t.name}
       </h1>
-      
-      {/* Desktop Menu */}
+
+      {/* Desktop Menü */}
       <ul className="hidden md:flex gap-6">
         {Object.entries(t.nav).map(([key, label]) => (
           <li key={key}>
-            <button 
-              onClick={() => scrollToSection(key === 'home' ? 'hero' : key)} 
-              className={`${isDark ? 'hover:text-purple-400' : 'hover:text-pink-500'} transition-colors duration-300 bg-transparent border-none cursor-pointer`}
+            <button
+              onClick={() => scrollToSection(key === 'home' ? 'hero' : key)}
+              className={`transition-colors duration-300 bg-transparent border-none cursor-pointer ${
+                isDark ? 'text-gray-300 hover:text-green-400' : 'text-gray-700 hover:text-blue-600'
+              }`}
             >
               {label}
             </button>
@@ -23,10 +30,12 @@ export default function Navbar({ isDark, t, scrollToSection }) {
         ))}
       </ul>
 
-      {/* Mobile Menu Button */}
+      {/* Mobile Menü Butonu */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className={`md:hidden p-2 rounded-lg ${isDark ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-700 hover:bg-pink-50'} transition-colors duration-300`}
+        className={`md:hidden p-2 rounded-lg transition-colors duration-300 ${
+          isDark ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-700 hover:bg-blue-50'
+        }`}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           {isMenuOpen ? (
@@ -37,18 +46,22 @@ export default function Navbar({ isDark, t, scrollToSection }) {
         </svg>
       </button>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menü */}
       {isMenuOpen && (
-        <div className={`absolute top-full left-0 right-0 ${isDark ? 'bg-gray-800/95' : 'bg-white/95'} backdrop-blur-md border-t ${isDark ? 'border-gray-700' : 'border-pink-100'} md:hidden`}>
+        <div className={`absolute top-full left-0 right-0 md:hidden backdrop-blur-md border-t ${
+          isDark ? 'bg-gray-900/95 border-gray-700' : 'bg-white/95 border-blue-100'
+        }`}>
           <ul className="flex flex-col py-4">
             {Object.entries(t.nav).map(([key, label]) => (
               <li key={key}>
-                <button 
+                <button
                   onClick={() => {
                     scrollToSection(key === 'home' ? 'hero' : key)
                     setIsMenuOpen(false)
-                  }} 
-                  className={`w-full text-left px-6 py-3 ${isDark ? 'hover:text-purple-400 hover:bg-gray-700/50' : 'hover:text-pink-500 hover:bg-pink-50'} transition-colors duration-300 bg-transparent border-none cursor-pointer`}
+                  }}
+                  className={`w-full text-left px-6 py-3 transition-colors duration-300 bg-transparent border-none cursor-pointer ${
+                    isDark ? 'text-gray-300 hover:text-green-400 hover:bg-gray-700/50' : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                  }`}
                 >
                   {label}
                 </button>

@@ -124,30 +124,37 @@ function App() {
     }
   }
 
-  return (
-    <div className={isDark ? 'dark' : ''}>
-      <main className={`${isDark ? 'bg-gray-900' : 'bg-gradient-to-br from-pink-100 via-pink-50 to-white'} text-gray-800 dark:text-gray-100 min-h-screen transition-all duration-500`}>
-        
-        <SettingsPanel 
-          isDark={isDark} 
-          setIsDark={setIsDark} 
-          isTurkish={isTurkish} 
-          setIsTurkish={setIsTurkish} 
-        />
+ return (
+  <div className={isDark ? 'dark' : ''}>
+    <main
+      className={`
+        ${isDark
+          ? 'bg-gray-900'
+          : 'bg-gradient-to-br from-gray-100 via-white to-blue-50'}
+        text-gray-800 dark:text-gray-100
+        min-h-screen transition-colors duration-500
+      `}
+    >
+      <SettingsPanel 
+        isDark={isDark} 
+        setIsDark={setIsDark} 
+        isTurkish={isTurkish} 
+        setIsTurkish={setIsTurkish} 
+      />
 
-        <Navbar isDark={isDark} t={t} scrollToSection={scrollToSection} />
-        
-        <Hero isDark={isDark} t={t} />
+      <Navbar isDark={isDark} t={t} scrollToSection={scrollToSection} />
 
-        <About isDark={isDark} t={t} />
+      <Hero isDark={isDark} t={t} />
 
-        <Projects isDark={isDark} t={t} isTurkish={isTurkish} />
+      <About isDark={isDark} t={t} />
 
-        <Contact isDark={isDark} t={t} />
+      <Projects isDark={isDark} t={t} isTurkish={isTurkish} />
 
-      </main>
-    </div>
-  )
+      <Contact isDark={isDark} t={t} />
+    </main>
+  </div>
+);
+
 }
 
 export default App
