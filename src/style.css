@@ -54,8 +54,8 @@ body {
 
 .portrait {
   display: block;
-  width: 6.5rem;
-  height: 6.5rem;
+  width: 8.5rem;
+  height: 8.5rem;
   object-fit: cover;
   border: 1.5px solid var(--ink);
 }
@@ -414,8 +414,8 @@ footer.content {
   }
 
   .portrait {
-    width: 4.75rem;
-    height: 4.75rem;
+    width: 6rem;
+    height: 6rem;
   }
 
   h1 {
