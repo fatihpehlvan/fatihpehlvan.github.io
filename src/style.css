@@ -1,12 +1,17 @@
 :root {
-  --paper: #f7f8f5;
-  --ink: #1d2433;
-  --muted: #586172;
-  --line: #d8dddf;
-  --blue: #2e5b8a;
-  --blue-dark: #1f4268;
+  --page: #f2f3ee;
+  --map: #e7ebde;
+  --panel: #f7f8f3;
+  --ink: #1d2320;
+  --muted: #545e57;
+  --rule: #c9cfc2;
+  --blue: #1c4f9c;
+  --blue-dark: #133a74;
   --serif: 'Spectral', Georgia, 'Times New Roman', serif;
   --cond: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  /* where the map body starts inside the sheet: frame margin plus a little air */
+  --inset: 36px;
+  --gutter: 1.25rem;
 }
 
 *,
@@ -21,7 +26,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--page);
   color: var(--ink);
   font-family: var(--serif);
   font-size: 1.1875rem;
@@ -29,50 +34,91 @@ body {
   font-kerning: normal;
 }
 
-.page {
-  max-width: 47rem;
-  margin: 0 auto;
-  padding: 5rem 1.5rem 3rem;
+/* The map sheet */
+.sheet {
+  position: relative;
+  max-width: 76rem;
+  margin: var(--gutter) auto 0;
+  padding: 0 var(--gutter);
 }
 
-/* Header: name and introduction on the left, the formation drill on the right */
-.intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 16.25rem;
-  gap: 2.75rem;
-  align-items: end;
+.sheet canvas {
+  display: block;
+  width: 100%;
+  height: clamp(27rem, 74vh, 38rem);
+  background: var(--map);
+  cursor: crosshair;
+  touch-action: manipulation;
+}
+
+.sheet canvas:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.cartouche {
+  position: absolute;
+  left: calc(var(--gutter) + var(--inset));
+  bottom: var(--inset);
+  width: min(28rem, 45%);
+  background: var(--panel);
+  border: 1.5px solid var(--ink);
+  padding: 1rem 1.2rem 0.85rem;
 }
 
 h1 {
   font-family: var(--cond);
   font-weight: 600;
-  font-size: clamp(3rem, 7vw, 4.25rem);
+  font-size: clamp(2.5rem, 4.4vw, 3.25rem);
   line-height: 0.95;
   letter-spacing: 0.002em;
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.45rem;
 }
 
-.lead {
+.role {
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  margin: 0 0 0.8rem;
+}
+
+.legend {
+  list-style: none;
   margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.3rem 1rem;
+  font-family: var(--cond);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  color: var(--muted);
 }
 
-.drill {
-  margin: 0;
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.drill canvas {
-  display: block;
-  width: 100%;
-  aspect-ratio: 13 / 9;
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  background: #fbfcfa;
-  cursor: pointer;
-  touch-action: manipulation;
+.legend svg {
+  flex: none;
 }
 
-.drill figcaption {
-  margin-top: 0.5rem;
+.legend i {
+  font-family: var(--serif);
+  font-size: 1.05em;
+}
+
+#obj-ref {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.hint {
+  margin: 0.7rem 0 0;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--rule);
   font-family: var(--cond);
   font-weight: 500;
   font-size: 1.0625rem;
@@ -80,17 +126,32 @@ h1 {
   color: var(--muted);
 }
 
-/* Sections */
+/* Text below the map lines up with the title block */
+.content {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 0 var(--gutter) 0 calc(var(--gutter) + var(--inset));
+}
+
+.content > section,
+.content > p {
+  max-width: 46rem;
+}
+
+main {
+  padding-top: 1rem;
+}
+
 main section {
-  margin-top: 3.5rem;
+  margin-top: 3.25rem;
 }
 
 h2 {
   font-family: var(--cond);
   font-weight: 600;
-  font-size: 1.75rem;
+  font-size: 1.875rem;
   line-height: 1.15;
-  margin: 0 0 0.9rem;
+  margin: 0 0 0.85rem;
 }
 
 p {
@@ -132,13 +193,13 @@ p {
   color: var(--muted);
 }
 
-.nb {
-  white-space: nowrap;
-}
-
 .me {
   color: var(--ink);
   font-weight: 600;
+}
+
+.nb {
+  white-space: nowrap;
 }
 
 .links {
@@ -147,7 +208,6 @@ p {
   gap: 0.15rem 1.25rem;
 }
 
-/* Links and focus */
 a {
   color: var(--blue);
   text-decoration-line: underline;
@@ -171,7 +231,7 @@ a:hover {
   left: 1rem;
   top: -3rem;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--page);
   padding: 0.4rem 0.8rem;
   z-index: 10;
 }
@@ -180,29 +240,62 @@ a:hover {
   top: 1rem;
 }
 
-footer {
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+footer.content {
   margin-top: 4.5rem;
+  padding-bottom: 3rem;
   color: var(--muted);
   font-size: 1rem;
 }
 
-/* Narrow screens: stack the drill under the introduction */
+/* Touch screens have no arrow keys to mention */
+@media (hover: none) {
+  .keys {
+    display: none;
+  }
+}
+
+/* Narrow screens: the title block moves under the map */
 @media (max-width: 760px) {
+  :root {
+    --gutter: 0.75rem;
+    --inset: 0.5rem;
+  }
+
   body {
     font-size: 1.0625rem;
   }
 
-  .page {
-    padding-top: 3rem;
+  .sheet canvas {
+    height: 22rem;
   }
 
-  .intro {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
+  .cartouche {
+    position: static;
+    width: auto;
+    border-top: none;
+    padding: 1rem 1rem 0.85rem;
   }
 
-  .drill {
-    max-width: 22rem;
+  h1 {
+    font-size: 2.6rem;
+  }
+
+  .legend {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .content {
+    padding: 0 1.25rem;
   }
 
   .entry {
