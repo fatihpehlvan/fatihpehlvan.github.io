@@ -1,18 +1,88 @@
+/* Colours: light by default, dark when the system asks for it or the visitor picks it
+   (main.js sets data-theme on <html>). The battle map reads the same tokens. */
 :root {
+  color-scheme: light;
   --page: #f2f3ee;
   --map: #e7ebde;
   --panel: #f7f8f3;
   --ink: #1d2320;
+  --frame: #1d2320;
   --muted: #545e57;
   --rule: #c9cfc2;
   --blue: #1c4f9c;
-  --blue-dark: #133a74;
+  --blue-hover: #133a74;
   --blue-fill: #d2ddf0;
+  --on-blue: #fff;
   --red: #a82c25;
+  --red-fill: #f2d8d4;
+  --grid: rgba(29, 35, 32, 0.075);
+  --track: rgba(29, 35, 32, 0.08);
+  --hp-track: rgba(29, 35, 32, 0.18);
+  --q-fill: rgba(168, 44, 37, 0.4);
+  --fallen: rgba(84, 94, 87, 0.45);
+  --shot: rgba(29, 35, 32, 0.75);
+  --veil: rgba(242, 243, 238, 0.82);
+  --to-dark: inline-flex;
+  --to-light: none;
   --serif: 'Spectral', Georgia, 'Times New Roman', serif;
   --cond: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   --gutter: 1.25rem;
   --pad: 1.5rem;
+}
+
+/* The same map at night. The two blocks below must stay identical. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --page: #151a18;
+  --map: #212a24;
+  --panel: #1b211e;
+  --ink: #e2e6dd;
+  --frame: #7f8a82;
+  --muted: #a2aca4;
+  --rule: #353e38;
+  --blue: #8db0ec;
+  --blue-hover: #bcd0f5;
+  --blue-fill: #233756;
+  --on-blue: #0f1418;
+  --red: #e07a70;
+  --red-fill: #4b2723;
+  --grid: rgba(226, 230, 221, 0.07);
+  --track: rgba(226, 230, 221, 0.1);
+  --hp-track: rgba(226, 230, 221, 0.2);
+  --q-fill: rgba(224, 122, 112, 0.42);
+  --fallen: rgba(162, 172, 164, 0.4);
+  --shot: rgba(226, 230, 221, 0.72);
+  --veil: rgba(21, 26, 24, 0.86);
+  --to-dark: none;
+  --to-light: inline-flex;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --page: #151a18;
+    --map: #212a24;
+    --panel: #1b211e;
+    --ink: #e2e6dd;
+    --frame: #7f8a82;
+    --muted: #a2aca4;
+    --rule: #353e38;
+    --blue: #8db0ec;
+    --blue-hover: #bcd0f5;
+    --blue-fill: #233756;
+    --on-blue: #0f1418;
+    --red: #e07a70;
+    --red-fill: #4b2723;
+    --grid: rgba(226, 230, 221, 0.07);
+    --track: rgba(226, 230, 221, 0.1);
+    --hp-track: rgba(226, 230, 221, 0.2);
+    --q-fill: rgba(224, 122, 112, 0.42);
+    --fallen: rgba(162, 172, 164, 0.4);
+    --shot: rgba(226, 230, 221, 0.72);
+    --veil: rgba(21, 26, 24, 0.86);
+    --to-dark: none;
+    --to-light: inline-flex;
+  }
 }
 
 *,
@@ -39,14 +109,14 @@ body {
 .sheet {
   max-width: 76rem;
   margin: var(--gutter) max(var(--gutter), calc((100vw - 76rem) / 2)) 0;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--frame);
   background: var(--panel);
   padding: var(--pad);
 }
 
-.title {
+.sheet .title {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 1.25rem;
   align-items: center;
   margin-bottom: 1.25rem;
@@ -57,7 +127,51 @@ body {
   width: 8.5rem;
   height: 8.5rem;
   object-fit: cover;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--frame);
+}
+
+/* Light/dark switch: names the theme it switches to */
+.theme-toggle {
+  align-self: start;
+  display: inline-flex;
+  font-family: var(--cond);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1.5px solid var(--frame);
+  border-radius: 0;
+  padding: 0.5rem 0.75rem;
+  min-height: 2.5rem;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: var(--blue-fill);
+}
+
+.to-dark,
+.to-light {
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.to-dark {
+  display: var(--to-dark);
+}
+
+.to-light {
+  display: var(--to-light);
+}
+
+.theme-toggle svg {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 h1 {
@@ -93,7 +207,7 @@ h1 {
   place-content: center;
   justify-items: center;
   gap: 0.35rem;
-  background: rgba(242, 243, 238, 0.82);
+  background: var(--veil);
   text-align: center;
 }
 
@@ -153,7 +267,7 @@ h1 {
   line-height: 1.1;
   color: var(--ink);
   background: var(--page);
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--frame);
   border-radius: 0;
   padding: 0.55rem 0.4rem;
   min-height: 2.75rem;
@@ -172,7 +286,7 @@ h1 {
 .orders button[aria-pressed='true'] {
   background: var(--blue);
   border-color: var(--blue);
-  color: #fff;
+  color: var(--on-blue);
 }
 
 .orders kbd {
@@ -225,14 +339,14 @@ h1 {
 
 .qb {
   height: 0.55rem;
-  background: rgba(29, 35, 32, 0.08);
+  background: var(--track);
 }
 
 .qb i {
   display: block;
   height: 100%;
   width: 50%;
-  background: rgba(168, 44, 37, 0.4);
+  background: var(--q-fill);
   transition: width 0.25s ease-out;
 }
 
@@ -260,6 +374,20 @@ h1 {
 
 .note svg {
   vertical-align: -1px;
+}
+
+/* The legend's unit symbols follow the theme */
+.note svg rect {
+  fill: var(--blue-fill);
+  stroke: var(--blue);
+}
+
+.note svg path {
+  stroke: var(--blue);
+}
+
+.note svg circle {
+  fill: var(--blue);
 }
 
 /* Text below the sheet lines up with its inner edge */
@@ -352,7 +480,7 @@ a {
 }
 
 a:hover {
-  color: var(--blue-dark);
+  color: var(--blue-hover);
   text-decoration-thickness: 2px;
 }
 
@@ -409,8 +537,13 @@ footer.content {
     font-size: 1.0625rem;
   }
 
-  .title {
-    gap: 0.9rem;
+  /* Photo, name and the theme switch share the first row; the description runs full width below */
+  .sheet .title {
+    gap: 0.75rem 0.9rem;
+  }
+
+  .intro {
+    display: contents;
   }
 
   .portrait {
@@ -420,10 +553,32 @@ footer.content {
 
   h1 {
     font-size: 2.4rem;
+    margin: 0;
   }
 
   .role {
+    grid-column: 1 / -1;
+    grid-row: 2;
     font-size: 1rem;
+  }
+
+  /* Only the icon on small screens; the words stay for screen readers */
+  .theme-toggle {
+    grid-column: 3;
+    grid-row: 1;
+    min-width: 2.5rem;
+    justify-content: center;
+    padding: 0.5rem;
+  }
+
+  .theme-word {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
   .board canvas {

@@ -16,16 +16,26 @@ import {
 import table from './qtable.json'
 
 const LABELS = { advance: 'Advance', hold: 'Hold', charge: 'Charge', flank: 'Flank', fallback: 'Fall back' }
-const PAL = {
-  margin: '#f2f3ee',
-  paper: '#e7ebde',
-  grid: 'rgba(29, 35, 32, 0.075)',
-  ink: '#1d2320',
-  muted: '#545e57',
-  blue: '#1c4f9c',
-  blueFill: '#d2ddf0',
-  red: '#a82c25',
-  redFill: '#f2d8d4',
+// Map colours come from the CSS tokens, so the board follows the light or dark theme
+const TOKENS = {
+  margin: '--page',
+  paper: '--map',
+  grid: '--grid',
+  frame: '--frame',
+  muted: '--muted',
+  blue: '--blue',
+  blueFill: '--blue-fill',
+  red: '--red',
+  redFill: '--red-fill',
+  hpTrack: '--hp-track',
+  fallen: '--fallen',
+  shot: '--shot',
+}
+function readPalette() {
+  const css = getComputedStyle(document.documentElement)
+  const pal = {}
+  for (const [key, token] of Object.entries(TOKENS)) pal[key] = css.getPropertyValue(token).trim()
+  return pal
 }
 const LETTERS = 'ABCDEFGHJKLMNOPQRSTUVWXYZ'
 const SQUARE = 10 // field units per lettered grid square
@@ -41,6 +51,7 @@ const clock = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStar
 
 export function startBattle(el) {
   const ctx = el.canvas.getContext('2d')
+  let PAL = readPalette()
   let b = null
   let started = false
   let running = false
@@ -119,7 +130,7 @@ export function startBattle(el) {
       g.lineTo(X(W), py)
     }
     g.stroke()
-    g.strokeStyle = PAL.ink
+    g.strokeStyle = PAL.frame
     g.lineWidth = 1
     g.strokeRect(Math.round(X(0)) - 0.5, Math.round(Y(0)) - 0.5, Math.round(W * s) + 1, Math.round(H * s) + 1)
     g.lineWidth = 1.5
@@ -262,7 +273,7 @@ export function startBattle(el) {
     const frac = u.hp / STATS[u.kind].hp
     if (frac < 0.999) {
       const by = y + (u.side === 0 ? h / 2 : r) + 2.5
-      ctx.fillStyle = 'rgba(29, 35, 32, 0.18)'
+      ctx.fillStyle = PAL.hpTrack
       ctx.fillRect(x - w / 2, by, w, 2.5)
       ctx.fillStyle = col
       ctx.fillRect(x - w / 2, by, w * frac, 2.5)
@@ -276,7 +287,7 @@ export function startBattle(el) {
     const size = Math.max(9, Math.min(17, s * 2.3))
 
     // Fallen units stay on the map as small crosses
-    ctx.strokeStyle = 'rgba(84, 94, 87, 0.45)'
+    ctx.strokeStyle = PAL.fallen
     ctx.lineWidth = 1.2
     ctx.beginPath()
     for (const u of b.units) {
@@ -296,7 +307,7 @@ export function startBattle(el) {
       drawOrder(1)
     }
 
-    ctx.strokeStyle = 'rgba(29, 35, 32, 0.75)'
+    ctx.strokeStyle = PAL.shot
     ctx.lineWidth = 1.2
     ctx.beginPath()
     for (const a of b.arrows) {
@@ -411,6 +422,12 @@ export function startBattle(el) {
   new ResizeObserver(() => {
     if (layout() && b) draw(1)
   }).observe(el.canvas)
+  window.addEventListener('themechange', () => {
+    PAL = readPalette()
+    if (!frameLayer) return
+    frameLayer = paintFrame()
+    if (b) draw(running ? acc / DT : 1)
+  })
 
   reset()
 }

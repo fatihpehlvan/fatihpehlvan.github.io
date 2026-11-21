@@ -3,7 +3,10 @@ import '@fontsource/spectral/600.css'
 import '@fontsource/barlow-condensed/500.css'
 import '@fontsource/barlow-condensed/600.css'
 import './style.css'
+import { initTheme } from './theme.js'
 import { startBattle } from './battle/game.js'
+
+initTheme(document.querySelector('.theme-toggle'))
 
 const canvas = document.getElementById('field')
 

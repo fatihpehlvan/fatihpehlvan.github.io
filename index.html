@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
     <title>Fatih Pehlivan</title>
     <meta
       name="description"
@@ -11,6 +12,13 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script>
+      // Apply a saved light/dark choice before the page is drawn
+      try {
+        const theme = localStorage.getItem('theme')
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme
+      } catch (e) {}
+    </script>
     <script type="module" src="/src/main.js"></script>
   </head>
   <body>
@@ -19,13 +27,23 @@
     <header class="sheet">
       <div class="title">
         <img class="portrait" src="/portrait.jpg" width="136" height="136" alt="Fatih Pehlivan" />
-        <div>
+        <div class="intro">
           <h1>Fatih Pehlivan</h1>
           <p class="role">
             Computer engineering master’s student at Bilkent University and research assistant at
             Hacettepe University, Ankara. I build game agents.
           </p>
         </div>
+        <button type="button" class="theme-toggle">
+          <span class="to-dark">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.45 4.02A8 8 0 1 0 19.9 13.24A7 7 0 0 1 11.45 4.02Z" /></svg>
+            <span class="theme-word"><span class="visually-hidden">Switch to </span>Dark mode</span>
+          </span>
+          <span class="to-light">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.25" /><path d="M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5M5.28 5.28l1.77 1.77M16.95 16.95l1.77 1.77M5.28 18.72l1.77-1.77M16.95 7.05l1.77-1.77" /></svg>
+            <span class="theme-word"><span class="visually-hidden">Switch to </span>Light mode</span>
+          </span>
+        </button>
       </div>
 
       <section class="battle" aria-labelledby="battle-title">
