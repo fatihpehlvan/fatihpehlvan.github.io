@@ -1,12 +1,180 @@
-<!DOCTYPE html>
-<html lang="tr">
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Fatih Pehlivan</title>
+    <meta
+      name="description"
+      content="Fatih Pehlivan, computer engineering master’s student at Bilkent University. Game agents that work with people, multi-agent reinforcement learning and 3D characters."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script type="module" src="/src/main.js"></script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" crossorigin src="./src/main.jsx"></script>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="page">
+      <header class="intro">
+        <div class="intro-text">
+          <h1>Fatih Pehlivan</h1>
+          <p class="lead">
+            I’m a computer engineering master’s student at Bilkent University and a research
+            assistant at Hacettepe University in Ankara. I’m interested in game agents that play with
+            people rather than only against them: teammates that coordinate, call things out and can
+            explain what they are doing.
+          </p>
+        </div>
+
+        <figure class="drill">
+          <canvas
+            id="drill"
+            tabindex="0"
+            role="button"
+            aria-label="Eleven units on a map in line formation. Press to give them the next formation."
+            aria-describedby="drill-caption"
+          ></canvas>
+          <figcaption id="drill-caption">Line. Click the units for the next order.</figcaption>
+        </figure>
+      </header>
+
+      <main id="main">
+        <section aria-labelledby="research">
+          <h2 id="research">Research</h2>
+          <p>
+            Multi-agent reinforcement learning, <span class="nb">human–AI</span> teaming in games, explainable RL and 3D
+            characters. My master’s work is on 3D human avatars. Before that I worked on how well
+            large language models spot design problems in code.
+          </p>
+        </section>
+
+        <section aria-labelledby="publications">
+          <h2 id="publications">Publications</h2>
+          <ol class="entries">
+            <li class="entry">
+              <span class="when">2025</span>
+              <div class="what">
+                <p class="title">
+                  Are We SOLID Yet? An Empirical Study on Prompting LLMs to Detect Design Principle
+                  Violations
+                </p>
+                <p class="meta">
+                  <span class="me">F.&nbsp;Pehlivan</span>, A.&nbsp;Ü.&nbsp;Ergüzen, S.&nbsp;Moslemi&nbsp;Yengejeh, M.&nbsp;Lami,
+                  A.&nbsp;Koyuncu. ASE 2025, New Ideas and Emerging Results track.
+                </p>
+                <p class="links">
+                  <a href="https://doi.org/10.1109/ASE63991.2025.00350">Paper</a>
+                  <a href="https://arxiv.org/abs/2509.03093">arXiv</a>
+                  <a href="https://github.com/SahandMoslemi/AreWeSOLID">Code</a>
+                  <a href="https://zenodo.org/records/17630171">Data</a>
+                </p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section aria-labelledby="projects">
+          <h2 id="projects">Projects</h2>
+          <ol class="entries">
+            <li class="entry">
+              <span class="when">2026</span>
+              <div class="what">
+                <p class="title">Battle commander for Mount &amp; Blade II: Bannerlord</p>
+                <p>
+                  With M.&nbsp;Y.&nbsp;Bilge. A game mod in which an agent commands formations instead of single
+                  soldiers: advance, fall back, flank. The environment is built and reinforcement
+                  learning runs start in December. We want to see how much command quality alone
+                  changes a battle.
+                </p>
+                <p class="links">
+                  <a href="https://www.youtube.com/@FormationZero-0">Dev log (in Turkish)</a>
+                </p>
+              </div>
+            </li>
+            <li class="entry">
+              <span class="when">2025</span>
+              <div class="what">
+                <p class="title">Personality in motion</p>
+                <p>
+                  With A.&nbsp;Ü.&nbsp;Ergüzen. Unity ML-Agents characters trained with PPO and curriculum
+                  learning to move in a way that reads as extraverted, with rewards built on Laban
+                  movement qualities. We tested the results in an online user study.
+                </p>
+              </div>
+            </li>
+            <li class="entry">
+              <span class="when">2024</span>
+              <div class="what">
+                <p class="title">Gunslinger</p>
+                <p>
+                  B.Sc. graduation project, team of three. A 3D multiplayer version of the card game
+                  BANG! in Unity. AI players take over when someone disconnects, so the match goes on.
+                </p>
+                <p class="links">
+                  <a href="https://senacakirli.github.io/gunslinger.github.io/">Project page</a>
+                  <a href="https://github.com/fatihpehlvan/Gunslinger">Code</a>
+                </p>
+              </div>
+            </li>
+            <li class="entry">
+              <span class="when">2024</span>
+              <div class="what">
+                <p class="title">Deep Blue Rescue</p>
+                <p>
+                  Team project in Babylon.js: an underwater rescue game with custom water and shell
+                  shaders, animated fish and Recast navigation.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section aria-labelledby="education">
+          <h2 id="education">Education</h2>
+          <ol class="entries">
+            <li class="entry">
+              <span class="when">2027</span>
+              <div class="what">
+                <p class="title">M.Sc. in Computer Engineering, Bilkent University</p>
+                <p class="meta">Expected January 2027. Advisors: Uğur Güdükbay and Ayşegül Dündar.</p>
+              </div>
+            </li>
+            <li class="entry">
+              <span class="when">2024</span>
+              <div class="what">
+                <p class="title">B.Sc. in Computer Engineering, Hacettepe University</p>
+                <p class="meta">Third in the graduating class.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section aria-labelledby="teaching">
+          <h2 id="teaching">Teaching</h2>
+          <p>
+            At Hacettepe since March 2026: Introduction to Programming Laboratory II (Java), a data
+            structures lab in C++, and Fundamentals of Computer Vision. Before that, teaching assistant
+            in computer engineering at Bilkent from 2024 to 2026.
+          </p>
+        </section>
+
+        <section aria-labelledby="contact">
+          <h2 id="contact">Contact</h2>
+          <p>
+            Write to
+            <a href="mailto:fatihpehlivan.phd@gmail.com">fatihpehlivan.phd@gmail.com</a>.
+          </p>
+          <p class="links">
+            <a href="https://github.com/fatihpehlvan">GitHub</a>
+            <a href="https://www.linkedin.com/in/fatih-pehlivan">LinkedIn</a>
+            <a href="https://orcid.org/0009-0006-8925-4251">ORCID</a>
+          </p>
+        </section>
+      </main>
+
+      <footer>
+        <p>Updated November 2026.</p>
+      </footer>
+    </div>
   </body>
 </html>
