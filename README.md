@@ -2,9 +2,13 @@
 
 Personal page of Fatih Pehlivan. Plain HTML and CSS built with Vite; pushing to `main` deploys to GitHub Pages.
 
-The header is a live map (`src/map.js`): contour lines show the value function of the objective,
-and the squad takes the greedy action at every step. Click the map or use the arrow keys to move
-the objective.
+The header is a small battle (`src/battle/`): you command the blue army with five orders, and the
+red army is commanded by a tabular Q-learning agent. The simulation in `src/battle/sim.js` is shared
+by the page and the training script, so the agent plays the same game it was trained on.
+
+```
+npm run train   # retrains the red commander and rewrites src/battle/qtable.json
+```
 
 ```
 npm install

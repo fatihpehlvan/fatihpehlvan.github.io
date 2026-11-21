@@ -7,11 +7,12 @@
   --rule: #c9cfc2;
   --blue: #1c4f9c;
   --blue-dark: #133a74;
+  --blue-fill: #d2ddf0;
+  --red: #a82c25;
   --serif: 'Spectral', Georgia, 'Times New Roman', serif;
   --cond: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  /* where the map body starts inside the sheet: frame margin plus a little air */
-  --inset: 36px;
   --gutter: 1.25rem;
+  --pad: 1.5rem;
 }
 
 *,
@@ -34,91 +35,164 @@ body {
   font-kerning: normal;
 }
 
-/* The map sheet */
+/* The sheet: who I am, then the battle */
 .sheet {
-  position: relative;
   max-width: 76rem;
-  margin: var(--gutter) auto 0;
-  padding: 0 var(--gutter);
-}
-
-.sheet canvas {
-  display: block;
-  width: 100%;
-  height: clamp(27rem, 74vh, 38rem);
-  background: var(--map);
-  cursor: crosshair;
-  touch-action: manipulation;
-}
-
-.sheet canvas:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 3px;
-}
-
-.cartouche {
-  position: absolute;
-  left: calc(var(--gutter) + var(--inset));
-  bottom: var(--inset);
-  width: min(28rem, 45%);
-  background: var(--panel);
+  margin: var(--gutter) max(var(--gutter), calc((100vw - 76rem) / 2)) 0;
   border: 1.5px solid var(--ink);
-  padding: 1rem 1.2rem 0.85rem;
+  background: var(--panel);
+  padding: var(--pad);
+}
+
+.title {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.portrait {
+  display: block;
+  width: 6.5rem;
+  height: 6.5rem;
+  object-fit: cover;
+  border: 1.5px solid var(--ink);
 }
 
 h1 {
   font-family: var(--cond);
   font-weight: 600;
-  font-size: clamp(2.5rem, 4.4vw, 3.25rem);
+  font-size: clamp(2.6rem, 5vw, 3.5rem);
   line-height: 0.95;
   letter-spacing: 0.002em;
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.4rem;
 }
 
 .role {
   font-size: 1.0625rem;
   line-height: 1.45;
-  margin: 0 0 0.8rem;
-}
-
-.legend {
-  list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.3rem 1rem;
-  font-family: var(--cond);
-  font-weight: 500;
-  font-size: 1.0625rem;
-  line-height: 1.2;
-  color: var(--muted);
+  max-width: 44rem;
 }
 
-.legend li {
+.board {
+  position: relative;
+}
+
+.board canvas {
+  display: block;
+  width: 100%;
+  height: clamp(17rem, 50vh, 30rem);
+}
+
+.result {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.35rem;
+  background: rgba(242, 243, 238, 0.82);
+  text-align: center;
+}
+
+.result[hidden] {
+  display: none;
+}
+
+.result-title {
+  font-family: var(--cond);
+  font-weight: 600;
+  font-size: 2.75rem;
+  line-height: 1;
+  margin: 0;
+}
+
+.result-detail {
+  margin: 0 0 0.5rem;
+  font-size: 1.0625rem;
+}
+
+/* Orders and the red commander's view, under the map */
+.console {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 1rem 2rem;
+  margin-top: 1rem;
+}
+
+.side-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0 0 0.45rem;
+  font-family: var(--cond);
+  font-weight: 600;
+  font-size: 1.1875rem;
+  line-height: 1.2;
+}
+
+.side-head span:last-child {
+  font-weight: 500;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.orders {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.orders button,
+.again {
+  font-family: var(--cond);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  line-height: 1.1;
+  color: var(--ink);
+  background: var(--page);
+  border: 1.5px solid var(--ink);
+  border-radius: 0;
+  padding: 0.55rem 0.4rem;
+  min-height: 2.75rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 0.35rem;
 }
 
-.legend svg {
-  flex: none;
+.orders button:hover,
+.again:hover {
+  background: var(--blue-fill);
 }
 
-.legend i {
-  font-family: var(--serif);
-  font-size: 1.05em;
+.orders button[aria-pressed='true'] {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
 }
 
-#obj-ref {
-  color: var(--ink);
-  font-weight: 600;
+.orders kbd {
+  font-family: var(--cond);
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: inherit;
+  opacity: 0.7;
+}
+
+.again {
+  padding-inline: 1.25rem;
+  background: var(--panel);
 }
 
 .hint {
-  margin: 0.7rem 0 0;
-  padding-top: 0.55rem;
-  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.5rem 0 0;
   font-family: var(--cond);
   font-weight: 500;
   font-size: 1.0625rem;
@@ -126,11 +200,73 @@ h1 {
   color: var(--muted);
 }
 
-/* Text below the map lines up with the title block */
+#battle-clock {
+  font-variant-numeric: tabular-nums;
+}
+
+.q {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--cond);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+}
+
+.q li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) 3rem;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.1rem 0;
+  color: var(--muted);
+}
+
+.qb {
+  height: 0.55rem;
+  background: rgba(29, 35, 32, 0.08);
+}
+
+.qb i {
+  display: block;
+  height: 100%;
+  width: 50%;
+  background: rgba(168, 44, 37, 0.4);
+  transition: width 0.25s ease-out;
+}
+
+.qv {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.q li.chosen {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.q li.chosen .qb i {
+  background: var(--red);
+}
+
+.note {
+  margin: 1rem 0 0;
+  max-width: 50rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.note svg {
+  vertical-align: -1px;
+}
+
+/* Text below the sheet lines up with its inner edge */
 .content {
   max-width: 76rem;
-  margin: 0 auto;
-  padding: 0 var(--gutter) 0 calc(var(--gutter) + var(--inset));
+  margin: 0 max(var(--gutter), calc((100vw - 76rem) / 2));
+  padding: 0 0 0 calc(var(--pad) + 1.5px);
 }
 
 .content > section,
@@ -184,7 +320,7 @@ p {
   margin-bottom: 0;
 }
 
-.title {
+.entry .title {
   font-weight: 600;
   margin-bottom: 0.2rem;
 }
@@ -223,7 +359,6 @@ a:hover {
 :focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
 .skip {
@@ -257,45 +392,51 @@ footer.content {
   font-size: 1rem;
 }
 
-/* Touch screens have no arrow keys to mention */
+/* Touch screens have no number keys to mention */
 @media (hover: none) {
-  .keys {
+  .orders kbd {
     display: none;
   }
 }
 
-/* Narrow screens: the title block moves under the map */
 @media (max-width: 760px) {
   :root {
     --gutter: 0.75rem;
-    --inset: 0.5rem;
+    --pad: 0.9rem;
   }
 
   body {
     font-size: 1.0625rem;
   }
 
-  .sheet canvas {
-    height: 22rem;
+  .title {
+    gap: 0.9rem;
   }
 
-  .cartouche {
-    position: static;
-    width: auto;
-    border-top: none;
-    padding: 1rem 1rem 0.85rem;
+  .portrait {
+    width: 4.75rem;
+    height: 4.75rem;
   }
 
   h1 {
-    font-size: 2.6rem;
+    font-size: 2.4rem;
   }
 
-  .legend {
+  .role {
+    font-size: 1rem;
+  }
+
+  .board canvas {
+    height: auto;
+    aspect-ratio: 7 / 4;
+  }
+
+  .console {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .content {
-    padding: 0 1.25rem;
+  .orders {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .entry {
